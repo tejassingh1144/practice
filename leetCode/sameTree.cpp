@@ -11,7 +11,7 @@
  * };
  */
 class Solution {
-ublic:
+public:
 	bool equals(TreeNode* p,TreeNode* q){
 		if(p == NULL || q == NULL ){
 			if(q != NULL)

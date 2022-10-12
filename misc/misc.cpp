@@ -2,11 +2,9 @@
 #include <string>       // std::string
 #include <iostream>     // std::cout
 #include <sstream>      // std::stringstream, std::stringbuf
-
+using namespace std;
 int main () {
-  std::stringstream ss;
-  ss.str ("string");
-  std::string s = ss.str();
-  std::cout << s << '\n';
-  return 0;
-}
+  int a;
+  cin >> a ;
+  cout << "HELLO WORLD" << a << endl;
+  return 0; }
