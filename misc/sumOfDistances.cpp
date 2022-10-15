@@ -102,9 +102,11 @@ int main(){
 
     //traverse graph
     traverseGraph(root,NULL,n);
-    for(int i=0;i<n;i++)
-        cout << nodes[i]->key << ": " << nodes[i]->totalDist<< endl;
 
+    vector<int> ans;
+    for(int i=0;i<n;i++)
+        ans.push_back(nodes[i]->totalDist);
+    // return ans;
     return 0;
 
 }
