@@ -4,7 +4,10 @@
 #include <sstream>      // std::stringstream, std::stringbuf
 using namespace std;
 int main () {
-  int a;
-  cin >> a ;
-  cout << "HELLO WORLD" << a << endl;
-  return 0; }
+  string val;
+  int iVal;
+  getline(cin,val);
+  iVal = stoi(val);
+  cout << iVal << endl;
+  return 0;
+}

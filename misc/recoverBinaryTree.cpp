@@ -48,7 +48,8 @@ void traverse(TreeNode* x){
 }
 int main(){
     TreeNode* root = makeTree();
-    traverse(root);
+    traverseTree(root);
+    cout << bust->val << endl;
     cout << endl;
     return 0;
 }

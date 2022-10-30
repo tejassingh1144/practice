@@ -5,52 +5,45 @@ struct TreeNode{
     TreeNode* left;
     TreeNode* right;
 };
-void connectNodes(TreeNode** layersOfNode, int layers){
-    int deep = 0;
-    while( deep < layers ){
-        for(int i=0;i<pow(2,deep);i++){
-            TreeNode node = layersOfNode[deep][i];
-            node.left = &layersOfNode[deep+1][2*i];
-            node.right = &layersOfNode[deep+1][2*i + 1];
+void connectNodes(TreeNode*** nodes, int layers){
+    for(int i=0; i < layers-1;i++){
+        for(int j=0;j<pow(2,i);j++){
+            if(nodes[i][j] == NULL)
+                continue;
+            nodes[i][j]->left = nodes[i+1][2*j];
+            nodes[i][j]->right = nodes[i+1][2*j+1];
         }
-        deep++;
     }
-    for(int i=0;i<pow(2,deep);i++){
-        TreeNode node = layersOfNode[deep][i];
-        node.left = NULL;
-        node.right = NULL;
+    for(int j=0;j<pow(2,layers-1);j++){
+        if(nodes[layers-1][j] == NULL)
+            continue;
+        nodes[layers-1][j]->left = NULL;
+        nodes[layers-1][j]->right= NULL;
     }
 }  
 TreeNode* makeTree(){
-    cout << "Number of nodes: ";
-    int n,val;
-    cin >> n;
-    vector<int> nodesKey;
-    cout << "Value of each node: ";
-    for(int i=0;i<n;i++){
-        cin >> val;
-        nodesKey.push_back(val);
-    }
-    double depth = log(n)/log(2);
-    if(depth != (int)depth)
-        depth++;
-    int layers = (int)depth;
-    TreeNode* root;
-    TreeNode** layersOfNodes = new TreeNode*[layers];
-    int deep = 0,factor = 0;
-    while(deep < depth){
-        TreeNode* layer = new TreeNode[(int)pow(2,deep)];
-        for(int i=0;i<pow(2,deep);i++){
-            TreeNode node;
-            node.val = nodesKey[factor + i];
-            layer[i] = node;
+    cout << "Number of layers: " ;
+    int layers,val;
+    string strVal,gar;
+    cin >> layers;
+    getline(cin,gar);
+    TreeNode*** nodes = new TreeNode**[layers];
+    for(int i=0;i<layers;i++){
+        cout << "Layer " << i+1 << ": ";
+        int size = (int)pow(2,i);
+        nodes[i] = new TreeNode*[size];
+        for(int j=0;j<pow(2,i);j++){
+            TreeNode* node = new TreeNode;
+            getline(cin,strVal);
+            if(strVal.length() == 0){
+                nodes[i][j] = NULL;
+                continue;
+            }
+            val = stoi(strVal);
+            node -> val = val; 
+            nodes[i][j] = node;
         }
-        factor = factor + pow(2,deep);
-        layersOfNodes[deep] = layer;
-        deep++;
     }
-    connectNodes(layersOfNodes,layers);
-    return &layersOfNodes[0][0]; 
+    connectNodes(nodes,layers);
+    return nodes[0][0];
 }
-// [1,2,3,4,5,6,7,8]
-//  0 1 2 3 4 5 6 7
